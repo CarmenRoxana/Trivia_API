@@ -88,7 +88,169 @@ GET '/categories'
 '6' : "Sports"}
 
 ```
+GET `\questions?page=<page_number>` 
+- Fetches the question with the number of pagination specified.
+- Request parameters (optional): page: int_value
+- Example response:
+ ``` 
+ 
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports"
+  }, 
+  "current_category": [
+    1, 
+    1, 
+    1, 
+    2, 
+    2, 
+    2, 
+    2, 
+    3, 
+    3, 
+    3
+  ], 
+  "questions": [
+    {
+      "answer": "The Liver", 
+      "category": 1, 
+      "difficulty": 4, 
+      "id": 20, 
+      "question": "What is the heaviest organ in the human body?"
+    }, 
+    {
+      "answer": "Alexander Fleming", 
+      "category": 1, 
+      "difficulty": 3, 
+      "id": 21, 
+      "question": "Who discovered penicillin?"
+    }, 
+   .
+   .
+   .
+"success": true, 
+  "total_questions": 20
+}
+```
+DELETE `/questions/<question_id>`
+- Deletes a question from the existing available questions.
+- Request parameters: question_id: int 
+- Example response:
+```
+{
+  "deleted": "1", 
+  "success": true
+}
+```
+POST `/questions`
+- Adds a new question to the questions collection.
+- Request body: 
+```
+ {
+    question : string, 
+    answer : string, 
+    category: string, 
+    difficulty: int
+ }
+```
+- Example response:
+```
+{
+  "created": 1, 
+  "success": true
+}
+```
+POST `/questions/search`
+- Fetches all questions that match the search term - non case-sensitive.
+- Example request body: `{"searchTerm":"vlad"}`
+- Example response:
+```
+{
+  "current_category": [
+    4
+  ], 
+  "questions": [
+    {
+      "answer": "Voivode of Wallachia ", 
+      "category": 4, 
+      "difficulty": 4, 
+      "id": 25, 
+      "question": "Who is Vlad Tepes?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 1
+}
 
+```
+GET `/categories/<int:category_id>/questions`
+- Fetches questions based on the selected category.
+- Request argument: category_id:int
+- Example response:
+```
+{
+  "current_category": 2, 
+  "questions": [
+    {
+      "answer": "Escher", 
+      "category": 2, 
+      "difficulty": 1, 
+      "id": 16, 
+      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    }, 
+    {
+      "answer": "Mona Lisa", 
+      "category": 2, 
+      "difficulty": 3, 
+      "id": 17, 
+      "question": "La Giaconda is better known as what?"
+    }, 
+    {
+      "answer": "One", 
+      "category": 2, 
+      "difficulty": 4, 
+      "id": 18, 
+      "question": "How many paintings did Van Gogh sell in his lifetime?"
+    }, 
+    {
+      "answer": "Jackson Pollock", 
+      "category": 2, 
+      "difficulty": 2, 
+      "id": 19, 
+      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 20
+}
+}
+```
+POST `/quizzes`
+- Fetches one question randomly from the selected category. Questions that were previously shown will not be shown again. 
+- Request body example: 
+```
+{
+    'previous_questions': [],
+    'quiz_category': {'id': '2', 'type': 'Art'}
+ }
+```
+- Example response: 
+```
+{
+  "question": {
+    "answer": "The Liver", 
+    "category": 1, 
+    "difficulty": 4, 
+    "id": 20, 
+    "question": "What is the heaviest organ in the human body?"
+  }, 
+  "success": true
+}
+```
 
 ## Testing
 To run the tests, run
